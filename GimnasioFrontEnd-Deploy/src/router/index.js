@@ -25,12 +25,12 @@ import HorariosView from '@/components/views/HorariosView.vue'
 import InstalacionesView from '@/components/views/InstalacionesView.vue'
 import MantenimientoView from '@/components/views/MantenimientoView.vue'
 import ProductosView from '@/components/views/Ventas/ProductosView.vue'
-import DetallePromocionesView from '@/components/views/Ventas/DetallePromocionesView.vue'
+import Preguntas from '@/components/views/Ventas/Preguntas.vue'
 import PedidoView from '@/components/views/Ventas/PedidoView.vue'
-import DetallePedidosView from '@/components/views/Ventas/DetallePedidosView.vue'
+import EvaluacionServicio from '@/components/views/Ventas/EvaluacionServicio.vue'
 import PagosView from '@/components/views/Ventas/PagosView.vue'
 import PromocionesView from '@/components/views/Ventas/PromocionesView.vue'
-import DetalleProductosView from '@/components/views/Ventas/DetalleProductosView.vue'
+import OpinionesClientes from '@/components/views/Ventas/Opiniones_clientes.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -120,19 +120,19 @@ const router = createRouter({
             path:'/productos', name:'productos', component: ProductosView
           },
           {
-            path:'/detalleProductos', name:'detalleProductos', component: DetalleProductosView
+            path:'/Opiniones_clientes', name:'OpinionesClientes', component: OpinionesClientes
           },
           {
             path:'/promociones', name:'promociones', component: PromocionesView
           },
           {
-            path:'/detallePromociones', name:'detallePromociones', component: DetallePromocionesView
+            path:'/Preguntas', name:'Preguntas', component: Preguntas
           },
           {
             path:'/pedidos', name:'pedidos', component: PedidoView
           },
           {
-            path:'/detallePedidos', name:'detallePedidos', component: DetallePedidosView
+            path:'/EvaluacionServicio', name:'EvaluacionServicio', component: EvaluacionServicio
           },
           {
             path:'/pagos', name:'pagos', component: PagosView

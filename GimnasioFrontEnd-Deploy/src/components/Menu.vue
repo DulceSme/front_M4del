@@ -262,8 +262,8 @@
                      </RouterLink>
                     </li>
                     <li>
-                     <RouterLink to="detalleProductos">
-                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Detalle de Productos</a>
+                     <RouterLink to="Opiniones_clientes">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Opiniones De clientes</a>
                      </RouterLink>
                     </li>
                     <li>
@@ -272,8 +272,8 @@
                      </RouterLink>
                     </li>
                     <li>
-                     <RouterLink to="/detallePromociones">
-                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Detalles de Promociones</a>
+                     <RouterLink to="/preguntas">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Preguntas</a>
                      </RouterLink>
                     </li>
                     <li>
@@ -282,8 +282,8 @@
                      </RouterLink>
                     </li>
                     <li>
-                     <RouterLink to="/detallePedidos">
-                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Detalle de Pedidos</a>
+                     <RouterLink to="/EvaluacionServicio">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Evaluaciones de Servicios</a>
                      </RouterLink>
                     </li>
                     <li>
