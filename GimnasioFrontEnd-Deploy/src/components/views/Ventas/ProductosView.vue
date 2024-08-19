@@ -4,7 +4,7 @@
         <section>
             <div class="mx-auto p-4">
                 <div class="bg-gray-900 dark:bg-gray-700 shadow rounded-lg p-6">
-                    <h1 class="text-xl font-semibold mb-4 text-gray-100 dark:text-gray-100">Agragar Productos</h1>
+                    <h1 class="text-xl font-semibold mb-4 text-gray-100 dark:text-gray-100">Agregar Productos</h1>
                     <p class="text-gray-100 dark:text-gray-100 mb-6">Ingresa la información Correspondiente para crear un nuevo producto.</p>
                     <form>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -29,6 +29,13 @@
                             <input type="text" placeholder="Fecha actualizacion" class=" p-2 rounded-lg w-full font-medium bg-gray-100  border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
 
                         </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <select class=" rounded-lg w-full font-medium bg-gray-100  border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                                <option value="">Tipo</option>
+                                <option value="perdida">Promoción</option>
+                                <option value="aumento">Precio Tienda</option>
+                            </select>
+                        </div>
                         <button type="button" id="producto" class="px-1 py-1 w-[30%] rounded bg-red-600 text-white hover:bg-gray-600 focus:outline-none transition-colors">
                             Agregar Producto
                         </button>
@@ -42,9 +49,12 @@
                 <thead class="bg-gray-50 text-center">
                     <tr>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">Nombre de Producto</th>
+                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Marca</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Precio</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Fecha de creacion</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Fecha de Actualización</th>
+                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Promoción</th>
+                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100"></th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md"></th>
                     </tr>
                 </thead>
@@ -52,6 +62,9 @@
                     <tr class="hover:bg-gray-500 ">
                         <th class="h-[50px] text-center">
                             <span>Proteína Whey</span>
+                        </th>
+                        <th class="h-[50px] text-center">
+                            <span>FoodFort</span>
                         </th>
                         <th class="text-center">
                             <span>$589.20</span>
@@ -62,9 +75,17 @@
                         <th class="text-center">
                             <span>08-Agosto-2024</span>
                         </th>
-                        <th class="flex justify-center">
+                        <th class="text-center">
+                            <span>SI</span>
+                        </th>
+                        <th class="text-center">
                             <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
                                 Editar Producto
+                            </button>
+                        </th>
+                        <th class="text-center">
+                            <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-600">
+                                Agregar al carrito
                             </button>
                         </th>
                     </tr>
@@ -72,6 +93,9 @@
                     <tr class="hover:bg-gray-500">
                         <th class="h-[50px] text-center">
                             <span>Creatina Monohidratada</span>
+                        </th>
+                        <th class="h-[50px] text-center">
+                            <span>Flash</span>
                         </th>
                         <th class="text-center">
                             <span>$600.00</span>
@@ -82,9 +106,17 @@
                         <th class="text-center">
                             <span>08-Agosto-2024</span>
                         </th>
-                        <th class="flex justify-center">
+                        <th class="text-center">
+                            <span>NO</span>
+                        </th>
+                        <th class="text-center">
                             <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
                                 Editar Producto
+                            </button>
+                        </th>
+                        <th class="text-center">
+                            <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-600">
+                                Agregar al carrito
                             </button>
                         </th>
                     </tr>
@@ -92,6 +124,9 @@
                     <tr class="hover:bg-gray-500">
                         <th class="h-[50px] text-center">
                             <span>BCAA</span>
+                        </th>
+                        <th class="h-[50px] text-center">
+                            <span>Sport</span>
                         </th>
                         <th class="text-center">
                             <span>$520.00</span>
@@ -102,9 +137,17 @@
                         <th class="text-center">
                             <span>08-Agosto-2024</span>
                         </th>
-                        <th class="flex justify-center">
+                        <th class="text-center">
+                            <span>SI</span>
+                        </th>
+                        <th class="text-center">
                             <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
                                 Editar Producto
+                            </button>
+                        </th>
+                        <th class="text-center">
+                            <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-600">
+                                Agregar al carrito
                             </button>
                         </th>
                     </tr>
@@ -112,6 +155,9 @@
                     <tr class="hover:bg-gray-500">
                         <th class="h-[50px] text-center">
                             <span>Pre-entrenador</span>
+                        </th>
+                        <th class="h-[50px] text-center">
+                            <span>Train</span>
                         </th>
                         <th class="text-center">
                             <span>$400.00</span>
@@ -122,9 +168,17 @@
                         <th class="text-center">
                             <span>08-Agosto-2024</span>
                         </th>
-                        <th class="flex justify-center">
+                        <th class="text-center">
+                            <span>NO</span>
+                        </th>
+                        <th class="text-center">
                             <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
                                 Editar Producto
+                            </button>
+                        </th>
+                        <th class="text-center">
+                            <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-600">
+                                Agregar al carrito
                             </button>
                         </th>
                     </tr>
@@ -132,6 +186,9 @@
                     <tr class="hover:bg-gray-500">
                         <th class="h-[50px] text-center">
                             <span>Multivitamínico</span>
+                        </th>
+                        <th class="h-[50px] text-center">
+                            <span>BodyCrunch</span>
                         </th>
                         <th class="text-center">
                             <span>$200.00</span>
@@ -142,9 +199,17 @@
                         <th class="text-center">
                             <span>08-Agosto-2024</span>
                         </th>
-                        <th class="flex justify-center">
+                        <th class="text-center">
+                            <span>SI</span>
+                        </th>
+                        <th class="text-center">
                             <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
                                 Editar Producto
+                            </button>
+                        </th>
+                        <th class="text-center">
+                            <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-600">
+                                Agregar al carrito
                             </button>
                         </th>
                     </tr>
@@ -152,6 +217,9 @@
                     <tr class="hover:bg-gray-500">
                         <th class="h-[50px] text-center">
                             <span>Proteína Vegana</span>
+                        </th>
+                        <th class="h-[50px] text-center">
+                            <span>FoodFort</span>
                         </th>
                         <th class="text-center">
                             <span>$500.00</span>
@@ -162,10 +230,20 @@
                         <th class="text-center">
                             <span>08-Agosto-2024</span>
                         </th>
-                        <th class="flex justify-center">
+                        <th class="text-center">
+                            <span>NO</span>
+                        </th>
+                        <th class="text-center">
                             <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
                                 Editar Producto
                             </button>
+                        </th>
+                        <th class="text-center">
+                            <a href="../Ventas/PedidoView.vue">
+                                <button type="button" id="producto" class="px-4 mt-1 py-2 rounded-md bg-gray-900 text-white hover:bg-gray-600">
+                                    Agregar al carrito
+                                </button>
+                            </a>
                         </th>
                     </tr>
 
