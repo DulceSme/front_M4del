@@ -24,13 +24,25 @@ import InstructoresView from '@/components/views/InstructoresView.vue'
 import HorariosView from '@/components/views/HorariosView.vue'
 import InstalacionesView from '@/components/views/InstalacionesView.vue'
 import MantenimientoView from '@/components/views/MantenimientoView.vue'
-import ProductosView from '@/components/views/Ventas/ProductosView.vue'
-import Preguntas from '@/components/views/Ventas/Preguntas.vue'
-import PedidoView from '@/components/views/Ventas/PedidoView.vue'
-import EvaluacionServicio from '@/components/views/Ventas/EvaluacionServicio.vue'
-import PagosView from '@/components/views/Ventas/PagosView.vue'
-import PromocionesView from '@/components/views/Ventas/PromocionesView.vue'
-import OpinionesClientes from '@/components/views/Ventas/Opiniones_clientes.vue'
+
+import ProductosAdmin from '@/components/VentasAdmin/ProductosAdmin.vue'
+import PreguntasAdmin from '@/components/VentasAdmin/PreguntasAdmin.vue'
+import PedidosAdmin from '@/components/VentasAdmin/PedidosAdmin.vue'
+import EvaluacionServicioAdmin from '@/components/VentasAdmin/EvaluacionServicioAdmin.vue'
+import PagosAdmin from '@/components/VentasAdmin/PagosAdmin.vue'
+import PromocionesAdmin from '@/components/VentasAdmin/PromocionesAdmin.vue'
+import Opiniones_clientes_Admin from '@/components/VentasAdmin/Opiniones_clientes_Admin.vue'
+
+import Promociones_Cliente from '@/components/VentasClientes/Promociones_Cliente.vue'
+import Productos_Cliente from '@/components/VentasClientes/Productos_Cliente.vue'
+import Preguntas_Cliente from '@/components/VentasClientes/Preguntas_Cliente.vue'
+import EvaluacionServicio_Cliente from '@/components/VentasClientes/EvaluacionServicio_Cliente.vue'
+import Opiniones_clientes_Cliente from '@/components/VentasClientes/Opiniones_clientes_Cliente.vue'
+import Pagos_Cliente from '@/components/VentasClientes/Pagos_Cliente.vue'
+import Pedidos_Cliente from '@/components/VentasClientes/Pedidos_Cliente.vue'
+
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -116,26 +128,58 @@ const router = createRouter({
           {
             path:'/mantenimiento', name:'mantenimiento', component: MantenimientoView
           },
+
+
+
+
+
+
           {
-            path:'/productos', name:'productos', component: ProductosView
+            path:'/ProductosAdmin', name:'ProductosAdmin', component: ProductosAdmin
           },
           {
-            path:'/Opiniones_clientes', name:'OpinionesClientes', component: OpinionesClientes
+            path:'/Opiniones_clientes_Admin', name:'Opiniones_clientes_Admin', component: Opiniones_clientes_Admin
           },
           {
-            path:'/promociones', name:'promociones', component: PromocionesView
+            path:'/PromocionesAdmin', name:'PromocionesAdmin', component: PromocionesAdmin
           },
           {
-            path:'/Preguntas', name:'Preguntas', component: Preguntas
+            path:'/PreguntasAdmin', name:'PreguntasAdmin', component: PreguntasAdmin
           },
           {
-            path:'/pedidos', name:'pedidos', component: PedidoView
+            path:'/PedidosAdmin', name:'PedidosAdmin', component: PedidosAdmin
           },
           {
-            path:'/EvaluacionServicio', name:'EvaluacionServicio', component: EvaluacionServicio
+            path:'/EvaluacionServicioAdmin', name:'EvaluacionServicioAdmin', component: EvaluacionServicioAdmin
           },
           {
-            path:'/pagos', name:'pagos', component: PagosView
+            path:'/PagosAdmin', name:'PagosAdmin', component: PagosAdmin
+          },
+
+
+
+
+          
+          {
+            path:'/Promociones_Cliente', name:'Promociones_Cliente', component: Promociones_Cliente
+          },
+          {
+            path:'/Productos_Cliente', name:'Productos_Cliente', component: Productos_Cliente
+          },
+          {
+            path:'/Preguntas_Cliente', name:'Preguntas_Cliente', component: Preguntas_Cliente
+          },
+          {
+            path:'/EvaluacionServicio_Cliente', name:'EvaluacionServicio_Cliente', component: EvaluacionServicio_Cliente
+          },
+          {
+            path:'/Opiniones_clientes_Cliente', name:'Opiniones_clientes_Cliente', component: Opiniones_clientes_Cliente
+          },
+          {
+            path:'/Pagos_Cliente', name:'Pagos_Cliente', component: Pagos_Cliente
+          },
+          {
+            path:'/Pedidos_Cliente', name:'Pedidos_Cliente', component: Pedidos_Cliente
           },
         ]
     },
