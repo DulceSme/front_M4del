@@ -1,188 +1,198 @@
 <template>
-    <div>
-      <h1 class="title-gym text-center">Estatus de pedidos</h1>
-      <section class="m-4">
-        <button @click="openAddOrderForm" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors mb-4">
-          Agregar Pedido
+  <div>
+    <h1 class="text-2xl xl:text-3xl font-extrabold mb-6">Gestión de Pedidos</h1>
+
+    <!-- Formulario para añadir un nuevo pedido -->
+    <form @submit.prevent="addOrder">
+      <input
+        v-model="newOrder.Producto"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="text" placeholder="Nombre de Producto" required
+      />
+      <input
+        v-model="newOrder.Cantidad"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="number" placeholder="Cantidad" required
+      />
+      <input
+        v-model="newOrder.FechaPedido"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="date" placeholder="Fecha del Pedido" required
+      />
+      <input
+        v-model="newOrder.ProductoID"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="text" placeholder="Producto ID" required
+      />
+      <select
+        v-model="newOrder.Tipo"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        required
+      >
+        <option value="" disabled>Selecciona un tipo</option>
+        <option value="Promoción">Promoción</option>
+        <option value="Descuento">Descuento</option>
+        <option value="Precio Tienda">Precio Tienda</option>
+      </select>
+      <input
+        v-model="newOrder.Estatus"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="text" placeholder="Estatus" required
+      />
+      <input
+        v-model="newOrder.FechaActualizacion"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="date" placeholder="Fecha Actualización" required
+      />
+      <button
+        class="mt-5 tracking-wide font-semibold bg-green-700 text-green-100 w-full py-4 rounded-lg hover:bg-green-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
+        type="submit"
+      >
+        Registrar Pedido
+      </button>
+    </form>
+
+    <!-- Listado de pedidos -->
+    <h2 class="text-xl font-bold mt-10">Lista de Pedidos</h2>
+    <table class="min-w-full bg-white mt-5">
+      <thead>
+        <tr>
+          <th class="py-2">ID</th>
+          <th class="py-2">Nombre de Producto</th>
+          <th class="py-2">Cantidad</th>
+          <th class="py-2">Fecha del Pedido</th>
+          <th class="py-2">Producto ID</th>
+          <th class="py-2">Tipo</th>
+          <th class="py-2">Estatus</th>
+          <th class="py-2">Fecha Actualización</th>
+          <th class="py-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="order in orders" :key="order.id">
+          <td class="border px-4 py-2">{{ order.id }}</td>
+          <td class="border px-4 py-2">{{ order.Producto }}</td>
+          <td class="border px-4 py-2">{{ order.Cantidad }}</td>
+          <td class="border px-4 py-2">{{ order.FechaPedido }}</td>
+          <td class="border px-4 py-2">{{ order.ProductoID }}</td>
+          <td class="border px-4 py-2">{{ order.Tipo }}</td>
+          <td class="border px-4 py-2">{{ order.Estatus }}</td>
+          <td class="border px-4 py-2">{{ order.FechaActualizacion }}</td>
+          <td class="border px-4 py-2 text-center">
+            <div class="flex justify-center gap-2">
+              <button @click="editOrder(order.id)" class="bg-yellow-500 text-white px-4 py-2 rounded-lg w-24">
+                Editar
+              </button>
+              <button @click="deleteOrder(order.id)" class="bg-red-500 text-white px-4 py-2 rounded-lg w-24">
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Formulario para editar un pedido -->
+    <div v-if="editingOrder">
+      <h2 class="text-xl font-bold mt-10">Editar Pedido</h2>
+      <form @submit.prevent="updateOrder">
+        <input
+          v-model="currentOrder.Producto"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="text" placeholder="Nombre de Producto" required
+        />
+        <input
+          v-model="currentOrder.Cantidad"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="number" placeholder="Cantidad" required
+        />
+        <input
+          v-model="currentOrder.FechaPedido"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="date" placeholder="Fecha del Pedido" required
+        />
+        <input
+          v-model="currentOrder.ProductoID"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="text" placeholder="Producto ID" required
+        />
+        <select
+          v-model="currentOrder.Tipo"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          required
+        >
+          <option value="" disabled>Selecciona un tipo</option>
+          <option value="Promoción">Promoción</option>
+          <option value="Descuento">Descuento</option>
+          <option value="Precio Tienda">Precio Tienda</option>
+        </select>
+        <input
+          v-model="currentOrder.Estatus"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="text" placeholder="Estatus" required
+        />
+        <input
+          v-model="currentOrder.FechaActualizacion"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="date" placeholder="Fecha Actualización" required
+        />
+        <button
+          class="mt-5 tracking-wide font-semibold bg-blue-700 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
+          type="submit"
+        >
+          Actualizar Pedido
         </button>
-        <table class="w-full bg-white text-left text-sm text-gray-900 rounded">
-          <thead class="bg-gray-50 text-center">
-            <tr>
-              <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">Nombre de Producto</th>
-              <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Cantidad</th>
-              <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Precio</th>
-              <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Fecha del pedido</th>
-              <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Estatus</th>
-              <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Aplica en</th>
-              <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md"></th>
-            </tr>
-          </thead>
-          <tbody class="bg-gray-200">
-            <tr v-for="(order, index) in orders" :key="index" class="hover:bg-gray-500">
-              <td class="h-[50px] text-center">{{ order.productName }}</td>
-              <td class="h-[50px] text-center">{{ order.quantity }}</td>
-              <td class="text-center">{{ order.price }}</td>
-              <td class="text-center">{{ order.orderDate }}</td>
-              <td class="text-center">{{ order.status }}</td>
-              <td class="text-center">{{ order.appliesTo }}</td>
-              <td class="flex justify-center">
-                <button @click="editOrder(order, index)" class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors">
-                  Editar Pedido
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <hr class="border-2 mt-4">
-      </section>
-  
-      <!-- Formulario para agregar pedido -->
-      <div v-if="showAddOrderForm" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[50%]">
-          <h2 class="text-lg font-semibold mb-4">Agregar Pedido</h2>
-          <form @submit.prevent="addOrder">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <input v-model="newOrder.productName" type="text" placeholder="Nombre de Producto" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-              <input v-model="newOrder.quantity" type="number" placeholder="Cantidad" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-              <input v-model="newOrder.price" type="text" placeholder="Precio" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-              <input v-model="newOrder.orderDate" type="date" placeholder="Fecha del pedido" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-              <select v-model="newOrder.status" class="rounded-lg w-full font-medium bg-gray-100 border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                <option value="">Estatus</option>
-                <option value="Proceso">Proceso</option>
-                <option value="Iniciado">Iniciado</option>
-                <option value="Entregado">Entregado</option>
-              </select>
-              <select v-model="newOrder.appliesTo" class="rounded-lg w-full font-medium bg-gray-100 border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                <option value="">Aplica en</option>
-                <option value="Promoción">Promoción</option>
-                <option value="Precio tienda">Precio tienda</option>
-              </select>
-            </div>
-            <div class="flex justify-end gap-4">
-              <button type="button" @click="closeAddOrderForm" class="px-4 py-2 rounded-md bg-gray-500 text-white hover:bg-gray-600 transition-colors">
-                Cancelar
-              </button>
-              <button type="submit" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors">
-                Agregar Pedido
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-  
-      <!-- Formulario para editar pedido -->
-      <div v-if="showEditOrderForm" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[50%]">
-          <h2 class="text-lg font-semibold mb-4">Editar Pedido</h2>
-          <form @submit.prevent="updateOrder">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <input v-model="selectedOrder.productName" type="text" placeholder="Nombre de Producto" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-              <input v-model="selectedOrder.quantity" type="number" placeholder="Cantidad" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-              <input v-model="selectedOrder.price" type="text" placeholder="Precio" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-              <input v-model="selectedOrder.orderDate" type="date" placeholder="Fecha del pedido" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-              <select v-model="selectedOrder.status" class="rounded-lg w-full font-medium bg-gray-100 border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                <option value="">Estatus</option>
-                <option value="Proceso">Proceso</option>
-                <option value="Iniciado">Iniciado</option>
-                <option value="Entregado">Entregado</option>
-              </select>
-              <select v-model="selectedOrder.appliesTo" class="rounded-lg w-full font-medium bg-gray-100 border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                <option value="">Aplica en</option>
-                <option value="Promoción">Promoción</option>
-                <option value="Precio tienda">Precio tienda</option>
-              </select>
-            </div>
-            <div class="flex justify-end gap-4">
-              <button type="button" @click="closeEditOrderForm" class="px-4 py-2 rounded-md bg-gray-500 text-white hover:bg-gray-600 transition-colors">
-                Cancelar
-              </button>
-              <button type="submit" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors">
-                Actualizar Pedido
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+        <br>
+      </form>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        orders: [
-          {
-            productName: 'Proteína Whey',
-            quantity: 3,
-            price: '$1760.60',
-            orderDate: '03-Agosto-2024',
-            status: 'Proceso',
-            appliesTo: 'Promoción'
-          },
-          // Agrega más pedidos aquí según sea necesario
-        ],
-        showAddOrderForm: false,
-        showEditOrderForm: false,
-        newOrder: {
-          productName: '',
-          quantity: '',
-          price: '',
-          orderDate: '',
-          status: '',
-          appliesTo: ''
-        },
-        selectedOrderIndex: null,
-        selectedOrder: {
-          productName: '',
-          quantity: '',
-          price: '',
-          orderDate: '',
-          status: '',
-          appliesTo: ''
-        }
-      };
-    },
-    methods: {
-      openAddOrderForm() {
-        this.showAddOrderForm = true;
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      orders: [
+        { id: 1, Producto: "Producto A", Cantidad: 5, FechaPedido: "2024-08-01", ProductoID: "P123", Tipo: "Promoción", Estatus: "Pendiente", FechaActualizacion: "2024-08-01" },
+        { id: 2, Producto: "Producto B", Cantidad: 10, FechaPedido: "2024-08-03", ProductoID: "P124", Tipo: "Descuento", Estatus: "En Proceso", FechaActualizacion: "2024-08-03" },
+        { id: 3, Producto: "Producto C", Cantidad: 2, FechaPedido: "2024-08-05", ProductoID: "P125", Tipo: "Precio Tienda", Estatus: "Completado", FechaActualizacion: "2024-08-05" }
+      ],
+      newOrder: {
+        Producto: "",
+        Cantidad: "",
+        FechaPedido: "",
+        ProductoID: "",
+        Tipo: "",
+        Estatus: "",
+        FechaActualizacion: ""
       },
-      closeAddOrderForm() {
-        this.showAddOrderForm = false;
-      },
-      addOrder() {
-        if (this.newOrder.productName && this.newOrder.quantity && this.newOrder.price && this.newOrder.orderDate && this.newOrder.status && this.newOrder.appliesTo) {
-          this.orders.push({ ...this.newOrder });
-          this.newOrder = { productName: '', quantity: '', price: '', orderDate: '', status: '', appliesTo: '' };
-          this.closeAddOrderForm();
-        } else {
-          alert('Por favor, completa todos los campos.');
-        }
-      },
-      editOrder(order, index) {
-        this.selectedOrder = { ...order };
-        this.selectedOrderIndex = index;
-        this.showEditOrderForm = true;
-      },
-      closeEditOrderForm() {
-        this.showEditOrderForm = false;
-      },
-      updateOrder() {
-        if (this.selectedOrderIndex !== null) {
-          // Actualizar el pedido en el array
-          this.$set(this.orders, this.selectedOrderIndex, { ...this.selectedOrder });
-          this.selectedOrder = { productName: '', quantity: '', price: '', orderDate: '', status: '', appliesTo: '' };
-          this.selectedOrderIndex = null;
-          this.closeEditOrderForm();
-          alert('Pedido actualizado con éxito.'); // Confirmación de éxito
-        } else {
-          alert('Pedido no encontrado.');
-        }
+      currentOrder: null,
+      editingOrder: false
+    };
+  },
+  methods: {
+    addOrder() {
+      if (this.newOrder.Producto && this.newOrder.Cantidad && this.newOrder.FechaPedido && this.newOrder.ProductoID && this.newOrder.Tipo && this.newOrder.Estatus && this.newOrder.FechaActualizacion) {
+        const newId = this.orders.length ? Math.max(...this.orders.map(o => o.id)) + 1 : 1;
+        this.orders.push({ ...this.newOrder, id: newId });
+        this.newOrder = { Producto: "", Cantidad: "", FechaPedido: "", ProductoID: "", Tipo: "", Estatus: "", FechaActualizacion: "" };
       }
+    },
+    editOrder(id) {
+      this.currentOrder = { ...this.orders.find(o => o.id === id) };
+      this.editingOrder = true;
+    },
+    updateOrder() {
+      const index = this.orders.findIndex(o => o.id === this.currentOrder.id);
+      if (index !== -1) {
+        this.orders.splice(index, 1, this.currentOrder);
+      }
+      this.currentOrder = null;
+      this.editingOrder = false;
+    },
+    deleteOrder(id) {
+      this.orders = this.orders.filter(o => o.id !== id);
     }
-  };
-  </script>
-  
-  <style scoped>
-  /* Agrega estilos personalizados aquí si es necesario */
-  </style>
-  
+  }
+};
+</script>
