@@ -4,11 +4,7 @@
 
     <!-- Formulario para añadir un nuevo pedido -->
     <form @submit.prevent="addOrder">
-      <input
-        v-model="newOrder.ID"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="ID" required
-      />
+
       <input
         v-model="newOrder.ProductoID"
         class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
@@ -117,10 +113,10 @@
           <td class="border px-4 py-2">{{ order.CostoTotal }}</td>
           <td class="border px-4 py-2 text-center">
             <div class="flex justify-center gap-2">
-              <button @click="editOrder(order.ID)" class="bg-yellow-500 text-white px-4 py-2 rounded-lg w-24">
+              <button @click="editOrder(order.ProductoID)" class="bg-yellow-500 text-white px-4 py-2 rounded-lg w-24">
                 Editar
               </button>
-              <button @click="deleteOrder(order.ID)" class="bg-red-500 text-white px-4 py-2 rounded-lg w-24">
+              <button @click="deleteOrder(order.ProductoID)" class="bg-red-500 text-white px-4 py-2 rounded-lg w-24">
                 Eliminar
               </button>
             </div>
@@ -133,11 +129,7 @@
     <div v-if="editingOrder">
       <h2 class="text-xl font-bold mt-10">Editar Pedido</h2>
       <form @submit.prevent="updateOrder">
-        <input
-          v-model="currentOrder.ID"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="ID" required
-        />
+
         <input
           v-model="currentOrder.ProductoID"
           class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
@@ -229,7 +221,6 @@ export default {
         { ID: 3, ProductoID: "P125", PersonaID: "U458", Tipo: "Precio Tienda", FechaRegistro: "2024-08-05", FechaActualizacion: "2024-08-05", Estatus: "Activo", TotalProductos: 2, CostoTotal: 50.00 }
       ],
       newOrder: {
-        ID: "",
         ProductoID: "",
         PersonaID: "",
         Tipo: "",
@@ -240,14 +231,16 @@ export default {
         CostoTotal: ""
       },
       currentOrder: null,
-      editingOrder: false
+      editingOrder: false,
+      nextId: 4  // Asegúrate de que este ID sea único y se actualice adecuadamente
     };
   },
   methods: {
     addOrder() {
-      if (this.newOrder.ID && this.newOrder.ProductoID && this.newOrder.PersonaID && this.newOrder.Tipo && this.newOrder.FechaRegistro && this.newOrder.FechaActualizacion && this.newOrder.Estatus && this.newOrder.TotalProductos && this.newOrder.CostoTotal) {
-        this.orders.push({ ...this.newOrder });
-        this.newOrder = { ID: "", ProductoID: "", PersonaID: "", Tipo: "", FechaRegistro: "", FechaActualizacion: "", Estatus: "", TotalProductos: "", CostoTotal: "" };
+      if (this.newOrder.ProductoID && this.newOrder.PersonaID && this.newOrder.Tipo && this.newOrder.FechaRegistro && this.newOrder.FechaActualizacion && this.newOrder.Estatus && this.newOrder.TotalProductos && this.newOrder.CostoTotal) {
+        const newOrderWithId = { ID: this.nextId++, ...this.newOrder };
+        this.orders.push(newOrderWithId);
+        this.newOrder = { ProductoID: "", PersonaID: "", Tipo: "", FechaRegistro: "", FechaActualizacion: "", Estatus: "", TotalProductos: "", CostoTotal: "" };
       }
     },
     editOrder(id) {
@@ -267,6 +260,7 @@ export default {
     }
   }
 };
+
 </script>
 
 <style scoped>
