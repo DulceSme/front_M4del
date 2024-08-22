@@ -5,24 +5,19 @@
     <!-- Formulario para añadir un nuevo pedido -->
     <form @submit.prevent="addOrder">
       <input
-        v-model="newOrder.Producto"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Nombre de Producto" required
-      />
-      <input
-        v-model="newOrder.Cantidad"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="number" placeholder="Cantidad" required
-      />
-      <input
-        v-model="newOrder.FechaPedido"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="date" placeholder="Fecha del Pedido" required
+        v-model="newOrder.ID"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="text" placeholder="ID" required
       />
       <input
         v-model="newOrder.ProductoID"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
         type="text" placeholder="Producto ID" required
+      />
+      <input
+        v-model="newOrder.PersonaID"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="text" placeholder="Persona ID" required
       />
       <select
         v-model="newOrder.Tipo"
@@ -34,21 +29,61 @@
         <option value="Descuento">Descuento</option>
         <option value="Precio Tienda">Precio Tienda</option>
       </select>
-      <input
+
+  <div class="relative mt-5">
+    <input
+      v-model="newOrder.FechaRegistro"
+      id="fecha-registro"
+      class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white peer"
+      type="date"
+      required
+    />
+    <label
+      for="fecha-registro"
+      class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs transition-all duration-300 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-3 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-600"
+    >
+      Fecha Registro
+    </label>
+  </div>
+  <div class="relative mt-5">
+    <input
+      v-model="newOrder.FechaActualizacion"
+      id="fecha-actualizacion"
+      class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white peer"
+      type="date"
+      required
+    />
+    <label
+      for="fecha-actualizacion"
+      class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs transition-all duration-300 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-3 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-600"
+    >
+      Fecha Actualización
+    </label>
+  </div>
+      <select
         v-model="newOrder.Estatus"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Estatus" required
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        required
+      >
+        <option value="" disabled>Selecciona un estatus</option>
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+      </select>
+      <input
+        v-model="newOrder.TotalProductos"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="number" placeholder="Total de Productos" required
       />
       <input
-        v-model="newOrder.FechaActualizacion"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="date" placeholder="Fecha Actualización" required
+        v-model="newOrder.CostoTotal"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="number" step="0.01" placeholder="Costo Total" required
       />
       <button
-        class="mt-5 tracking-wide font-semibold bg-green-700 text-green-100 w-full py-4 rounded-lg hover:bg-green-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
+        class="mt-5 tracking-wide font-semibold bg-red-700 text-red-100 w-full py-4 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
         type="submit"
       >
-        Registrar Pedido
+        Registrar
       </button>
     </form>
 
@@ -58,32 +93,34 @@
       <thead>
         <tr>
           <th class="py-2">ID</th>
-          <th class="py-2">Nombre de Producto</th>
-          <th class="py-2">Cantidad</th>
-          <th class="py-2">Fecha del Pedido</th>
           <th class="py-2">Producto ID</th>
+          <th class="py-2">Persona ID</th>
           <th class="py-2">Tipo</th>
+          <th class="py-2">Fecha de Registro</th>
+          <th class="py-2">Fecha de Actualización</th>
           <th class="py-2">Estatus</th>
-          <th class="py-2">Fecha Actualización</th>
+          <th class="py-2">Total de Productos</th>
+          <th class="py-2">Costo Total</th>
           <th class="py-2">Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="order in orders" :key="order.id">
-          <td class="border px-4 py-2">{{ order.id }}</td>
-          <td class="border px-4 py-2">{{ order.Producto }}</td>
-          <td class="border px-4 py-2">{{ order.Cantidad }}</td>
-          <td class="border px-4 py-2">{{ order.FechaPedido }}</td>
+          <td class="border px-4 py-2">{{ order.ID }}</td>
           <td class="border px-4 py-2">{{ order.ProductoID }}</td>
+          <td class="border px-4 py-2">{{ order.PersonaID }}</td>
           <td class="border px-4 py-2">{{ order.Tipo }}</td>
-          <td class="border px-4 py-2">{{ order.Estatus }}</td>
+          <td class="border px-4 py-2">{{ order.FechaRegistro }}</td>
           <td class="border px-4 py-2">{{ order.FechaActualizacion }}</td>
+          <td class="border px-4 py-2">{{ order.Estatus }}</td>
+          <td class="border px-4 py-2">{{ order.TotalProductos }}</td>
+          <td class="border px-4 py-2">{{ order.CostoTotal }}</td>
           <td class="border px-4 py-2 text-center">
             <div class="flex justify-center gap-2">
-              <button @click="editOrder(order.id)" class="bg-yellow-500 text-white px-4 py-2 rounded-lg w-24">
+              <button @click="editOrder(order.ID)" class="bg-yellow-500 text-white px-4 py-2 rounded-lg w-24">
                 Editar
               </button>
-              <button @click="deleteOrder(order.id)" class="bg-red-500 text-white px-4 py-2 rounded-lg w-24">
+              <button @click="deleteOrder(order.ID)" class="bg-red-500 text-white px-4 py-2 rounded-lg w-24">
                 Eliminar
               </button>
             </div>
@@ -97,24 +134,19 @@
       <h2 class="text-xl font-bold mt-10">Editar Pedido</h2>
       <form @submit.prevent="updateOrder">
         <input
-          v-model="currentOrder.Producto"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Nombre de Producto" required
-        />
-        <input
-          v-model="currentOrder.Cantidad"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="number" placeholder="Cantidad" required
-        />
-        <input
-          v-model="currentOrder.FechaPedido"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="date" placeholder="Fecha del Pedido" required
+          v-model="currentOrder.ID"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="text" placeholder="ID" required
         />
         <input
           v-model="currentOrder.ProductoID"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
           type="text" placeholder="Producto ID" required
+        />
+        <input
+          v-model="currentOrder.PersonaID"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="text" placeholder="Persona ID" required
         />
         <select
           v-model="currentOrder.Tipo"
@@ -126,18 +158,57 @@
           <option value="Descuento">Descuento</option>
           <option value="Precio Tienda">Precio Tienda</option>
         </select>
-        <input
+        <div class="relative mt-5">
+    <input
+      v-model="currentOrder.FechaRegistro"
+      id="fecha-registro"
+      class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white peer"
+      type="date"
+      required
+    />
+    <label
+      for="fecha-registro"
+      class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs transition-all duration-300 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-3 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-600"
+    >
+      Fecha Registro
+    </label>
+  </div>
+  <div class="relative mt-5">
+    <input
+      v-model="currentOrder.FechaActualizacion"
+      id="fecha-actualizacion"
+      class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white peer"
+      type="date"
+      required
+    />
+    <label
+      for="fecha-actualizacion"
+      class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs transition-all duration-300 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-3 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-600"
+    >
+      Fecha Actualización
+    </label>
+  </div>
+        <select
           v-model="currentOrder.Estatus"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Estatus" required
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          required
+        >
+          <option value="" disabled>Selecciona un estatus</option>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+        <input
+          v-model="currentOrder.TotalProductos"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="number" placeholder="Total de Productos" required
         />
         <input
-          v-model="currentOrder.FechaActualizacion"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="date" placeholder="Fecha Actualización" required
+          v-model="currentOrder.CostoTotal"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          type="number" step="0.01" placeholder="Costo Total" required
         />
         <button
-          class="mt-5 tracking-wide font-semibold bg-blue-700 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
+          class="mt-5 tracking-wide font-semibold bg-blue-700 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
           type="submit"
         >
           Actualizar Pedido
@@ -153,18 +224,20 @@ export default {
   data() {
     return {
       orders: [
-        { id: 1, Producto: "Producto A", Cantidad: 5, FechaPedido: "2024-08-01", ProductoID: "P123", Tipo: "Promoción", Estatus: "Pendiente", FechaActualizacion: "2024-08-01" },
-        { id: 2, Producto: "Producto B", Cantidad: 10, FechaPedido: "2024-08-03", ProductoID: "P124", Tipo: "Descuento", Estatus: "En Proceso", FechaActualizacion: "2024-08-03" },
-        { id: 3, Producto: "Producto C", Cantidad: 2, FechaPedido: "2024-08-05", ProductoID: "P125", Tipo: "Precio Tienda", Estatus: "Completado", FechaActualizacion: "2024-08-05" }
+        { ID: 1, ProductoID: "P123", PersonaID: "U456", Tipo: "Promoción", FechaRegistro: "2024-08-01", FechaActualizacion: "2024-08-01", Estatus: "Activo", TotalProductos: 5, CostoTotal: 100.00 },
+        { ID: 2, ProductoID: "P124", PersonaID: "U457", Tipo: "Descuento", FechaRegistro: "2024-08-03", FechaActualizacion: "2024-08-03", Estatus: "Inactivo", TotalProductos: 10, CostoTotal: 200.00 },
+        { ID: 3, ProductoID: "P125", PersonaID: "U458", Tipo: "Precio Tienda", FechaRegistro: "2024-08-05", FechaActualizacion: "2024-08-05", Estatus: "Activo", TotalProductos: 2, CostoTotal: 50.00 }
       ],
       newOrder: {
-        Producto: "",
-        Cantidad: "",
-        FechaPedido: "",
+        ID: "",
         ProductoID: "",
+        PersonaID: "",
         Tipo: "",
+        FechaRegistro: "",
+        FechaActualizacion: "",
         Estatus: "",
-        FechaActualizacion: ""
+        TotalProductos: "",
+        CostoTotal: ""
       },
       currentOrder: null,
       editingOrder: false
@@ -172,18 +245,17 @@ export default {
   },
   methods: {
     addOrder() {
-      if (this.newOrder.Producto && this.newOrder.Cantidad && this.newOrder.FechaPedido && this.newOrder.ProductoID && this.newOrder.Tipo && this.newOrder.Estatus && this.newOrder.FechaActualizacion) {
-        const newId = this.orders.length ? Math.max(...this.orders.map(o => o.id)) + 1 : 1;
-        this.orders.push({ ...this.newOrder, id: newId });
-        this.newOrder = { Producto: "", Cantidad: "", FechaPedido: "", ProductoID: "", Tipo: "", Estatus: "", FechaActualizacion: "" };
+      if (this.newOrder.ID && this.newOrder.ProductoID && this.newOrder.PersonaID && this.newOrder.Tipo && this.newOrder.FechaRegistro && this.newOrder.FechaActualizacion && this.newOrder.Estatus && this.newOrder.TotalProductos && this.newOrder.CostoTotal) {
+        this.orders.push({ ...this.newOrder });
+        this.newOrder = { ID: "", ProductoID: "", PersonaID: "", Tipo: "", FechaRegistro: "", FechaActualizacion: "", Estatus: "", TotalProductos: "", CostoTotal: "" };
       }
     },
     editOrder(id) {
-      this.currentOrder = { ...this.orders.find(o => o.id === id) };
+      this.currentOrder = { ...this.orders.find(o => o.ID === id) };
       this.editingOrder = true;
     },
     updateOrder() {
-      const index = this.orders.findIndex(o => o.id === this.currentOrder.id);
+      const index = this.orders.findIndex(o => o.ID === this.currentOrder.ID);
       if (index !== -1) {
         this.orders.splice(index, 1, this.currentOrder);
       }
@@ -191,8 +263,12 @@ export default {
       this.editingOrder = false;
     },
     deleteOrder(id) {
-      this.orders = this.orders.filter(o => o.id !== id);
+      this.orders = this.orders.filter(o => o.ID !== id);
     }
   }
 };
 </script>
+
+<style scoped>
+/* Añade aquí tus estilos personalizados si es necesario */
+</style>

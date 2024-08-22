@@ -27,12 +27,39 @@
                        class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
               </div>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <input v-model="nuevoProducto.estatus" type="text" placeholder="Estatus"
-                       class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                <input v-model="nuevoProducto.fechaRegistro" type="date" placeholder="Fecha de registro"
-                       class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                <input v-model="nuevoProducto.fechaActualizacion" type="date" placeholder="Fecha de actualización"
-                       class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                <select v-model="nuevoProducto.estatus" type="text" placeholder="Estatus"
+                  class="rounded-lg w-full font-medium bg-gray-100 border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                    <option value="">Estatus</option>
+                    <option value="servicio1">Activo</option>
+                    <option value="servicio2">Inactivo</option>
+                    <!-- Añadir más opciones según los servicios disponibles -->
+                  </select>                
+                  <div class="relative mt-5">
+  <input
+    v-model="nuevoProducto.fechaRegistro"
+    id="fecha-registro"
+    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+    type="date"
+    required
+  />
+  <label for="fecha-registro" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+    Fecha de registro
+  </label>
+</div>
+
+<div class="relative mt-5">
+  <input
+    v-model="nuevoProducto.fechaActualizacion"
+    id="fecha-actualizacion"
+    type="date"
+    class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+    required
+  />
+  <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+    Fecha de actualización
+  </label>
+</div>
+
               </div>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <input type="file" @change="handleFileChange" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">

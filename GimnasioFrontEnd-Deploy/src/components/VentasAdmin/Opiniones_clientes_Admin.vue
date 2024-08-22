@@ -10,6 +10,11 @@
         type="text" placeholder="Descripcion" required
       />
       <input
+        v-model="newProgram.id_usuario"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        type="text" placeholder="ID Usuario" required
+      />
+      <input
         v-model="newProgram.Tipo"
         class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
         type="text" placeholder="Tipo" required
@@ -19,21 +24,41 @@
         class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
         type="text" placeholder="Respuesta" required
       />
-      <input
-        v-model="newProgram.Estatus"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Estatus" required
-      />
-      <input
-        v-model="newProgram.Registro"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="date" placeholder="Fecha Registro" required
-      />
-      <input
-        v-model="newProgram.Actualizacion"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="date" placeholder="Fecha Actualizacion" required
-      />
+      <select v-model="newProgram.Estatus"
+    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
+        <option value="" disabled selected hidden>Estatus</option>
+        <option value="Cancelado">Cancelado</option>
+        <option value="Registrado">Registrado</option>
+        <option value="Abierto">Abierto</option>
+        <option value="Atendida">Atendida</option>
+      </select>
+
+      <div class="relative mt-5">
+  <input
+    v-model="newProgram.Registro"
+    id="fecha-registro"
+    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+    type="date"
+    required
+  />
+  <label for="fecha-registro" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+    Fecha Registro
+  </label>
+</div>
+
+<div class="relative mt-5">
+  <input
+    v-model="newProgram.Actualizacion"
+    id="fecha-actualizacion"
+    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+    type="date"
+    required
+  />
+  <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+    Fecha Actualización
+  </label>
+</div>
+
       <input
         v-model="newProgram.Atencion"
         class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
@@ -53,6 +78,7 @@
       <thead>
         <tr>
           <th class="py-2">ID</th>
+          <th class="py-2">ID usuario</th>
           <th class="py-2">Descripcion</th>
           <th class="py-2">Tipo</th>
           <th class="py-2">Respuesta</th>
@@ -66,6 +92,7 @@
       <tbody>
         <tr v-for="program in programs" :key="program.id">
           <td class="border px-4 py-2">{{ program.id }}</td>
+          <td class="border px-4 py-2">{{ program.id_usuario }}</td>
           <td class="border px-4 py-2">{{ program.Descripcion }}</td>
           <td class="border px-4 py-2">{{ program.Tipo }}</td>
           <td class="border px-4 py-2">{{ program.Respuesta }}</td>
@@ -104,26 +131,44 @@
           class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
           type="text" placeholder="Respuesta" required
         />
-        <input
-          v-model="currentProgram.Estatus"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Estatus" required
-        />
+        <select v-model="currentProgram.Estatus"
+           class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
+            <option selected>Estatus</option>
+            <option value="Cancelado">Cancelado</option>
+            <option value="Regsitrado">Regsitrado</option>
+            <option value="Abierto">Abierto</option>
+            <option value="Atendida">Atendida</option>
+        </select>
         <input
           v-model="currentProgram.Atencion"
           class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
           type="text" placeholder="Atencion Personal" required
         />
-        <input
-          v-model="currentProgram.Registro"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="date" placeholder="Fecha Registro" required
-        />
-        <input
-          v-model="currentProgram.Actualizacion"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="date" placeholder="Fecha Actualizacion" required
-        />
+        <div class="relative mt-5">
+  <input
+    v-model="currentProgram.Registro"
+    id="fecha-registro"
+    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+    type="date"
+    required
+  />
+  <label for="fecha-registro" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+    Fecha Registro
+  </label>
+</div>
+
+<div class="relative mt-5">
+  <input
+    v-model="currentProgram.Actualizacion"
+    id="fecha-actualizacion"
+    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+    type="date"
+    required
+  />
+  <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+    Fecha Actualización
+  </label>
+</div>
         <button
           class="mt-5 tracking-wide font-semibold bg-blue-700 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
           type="submit"
